@@ -30,3 +30,13 @@ CSS 边界演变：最初只要求改色调和 dither，不动组件样式。用
 验证链：`docker compose -f docker-compose.yml config`、内联 bootstrap Python compile、`node --check deploy/open-webui/static/loader.js`、`python -m json.tool deploy/open-webui/static/manifest.json`、`git diff --check`。
 
 下一步：推送后由用户在 Portainer Stack `open-webui` 执行 Pull and redeploy。部署后只读核验容器内 static 文件和浏览器内外网 UI。不要自动 redeploy，不要重启容器，不要改 volume/network。
+
+## 2026-07-28 Open WebUI 0.11.0 上游同步与兼容层复核
+
+Compare-first 结果：仓库记录的 subtree split 为 `ecd48e2f718220a6400ecf49eafd4867a38feb10`，官方 `upstream-open-webui/main` 为 `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`，存在 618 个提交、650 个文件的真实增量。同步通过既有 `scripts/sync-upstream.sh` 完成，无冲突；最终 `HEAD:upstream/open-webui` tree 与官方 head tree 完全一致，未在 subtree 内引入私库补丁。
+
+兼容边界：同步提交相对同步前 `main` 只改变 `upstream/open-webui/`，根层 `compat/`、`deploy/`、`scripts/`、`docs/`、`plans/`、Compose 和 AI 治理结构未被 subtree 合并覆盖。根级 Compose 继续保持 `open-webui` service/container、`3000:8080`、`ghcr.io/open-webui/open-webui:main` 和 `open-webui:/app/backend/data`；本轮没有 Portainer redeploy、容器重启、远端数据库写入或 volume/network 操作。
+
+设计复核：Open WebUI `0.11.0` 大规模重构了界面，但 IndieArk 品牌依赖的侧栏名称、侧栏、消息输入区、控制抽屉、浮动菜单、登录页和 splash 等关键 DOM anchor 仍存在。上游移除了消息输入区旧 `#create-note-button`，同时保留了 Notes 页面、侧栏新增入口和 `createNoteHandler`；私库 CSS 中该子选择器只成为无害 no-op，不影响同组按钮，也不需要修改 upstream。
+
+验证收口：新增 `scripts/verify-branding-assets.py`，由 `scripts/verify-compat.sh` 统一检查 subtree tree、工作树纯净性、Compose 双配置、品牌源资产与内嵌 bootstrap 逐字一致性、bootstrap Python 语法和关键 UI anchor。上游 head 的 49 个 GitHub check run 为 48 success、1 skipped，本地 Alembic 图为 55 个 revision、单一 head `f0bd01a18a3d`。部署文档继续保留 2026-07-07 的实际运行镜像 revision，并明确区分 2026-07-28 的仓库源码 split；后续只有用户明确执行 Portainer Pull and redeploy 后，才更新部署快照和浏览器验收结论。

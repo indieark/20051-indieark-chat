@@ -9,7 +9,7 @@
 - 官方上游 subtree：`upstream/open-webui/`
 - 根级兼容层：`README.md`、`AGENT.md`、`AGENTS.md`、`UPSTREAMS.md`、`docs/`、`plans/`、`compat/`、`scripts/`、`docker-compose.yml`
 - 部署层静态资产：`deploy/open-webui/static/`
-- 当前官方上游 split：`ecd48e2f718220a6400ecf49eafd4867a38feb10`
+- 当前官方上游 split：`01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`
 - 上游 remote：`upstream-open-webui=https://github.com/open-webui/open-webui.git`
 
 ## 部署事实
@@ -23,6 +23,7 @@
 - Stable image：`ghcr.io/open-webui/open-webui:main`
 - Data volume：`open-webui_open-webui:/app/backend/data`
 - 迁移执行期间未修改 Portainer stack、未重启容器、未切私有镜像。
+- 2026-07-28 仓库 subtree 已同步到 Open WebUI `0.11.0` 对应 head `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`；测试环境仍保持 2026-07-07 的已部署镜像快照，未 redeploy、未重启、未触碰数据卷。
 
 ## 品牌与部署层 UI
 
@@ -42,3 +43,4 @@
 - 测试环境写操作必须另行确认。
 - `docs/deployment.md` 是部署事实源，`UPSTREAMS.md` 是上游同步事实源，`docs/compatibility-layer.md` 是本地补丁事实源。
 - 品牌和全局 UI 皮肤事实源是 `plans/2026-07-07-open-webui-branding-compose-mount-plan.md`，维护入口是 `deploy/open-webui/static/`。
+- `scripts/verify-compat.sh` 是同步后的统一验证入口，除 Compose/data 边界外，还验证 subtree tree、品牌资产内嵌一致性和关键上游 UI anchor。

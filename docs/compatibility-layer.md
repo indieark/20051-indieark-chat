@@ -12,7 +12,7 @@
 | 私有镜像薄包装 | `Dockerfile` | 已提供，仍基于公共上游镜像 |
 | Web Search 环境模板 | `compat/config/web-search.env.example` | 已提供，不含 secret |
 | 上游同步脚本 | `scripts/sync-upstream.sh`, `scripts/sync-upstream.ps1` | 已提供 |
-| 兼容层验证 | `scripts/verify-compat.sh` | 已提供 |
+| 兼容层验证 | `scripts/verify-compat.sh`, `scripts/verify-branding-assets.py` | 已提供，覆盖 subtree 纯净性、Compose/data 边界、品牌资产同步和关键 UI anchor |
 
 ## Subtree 例外
 

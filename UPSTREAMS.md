@@ -4,7 +4,7 @@
 
 | Name | URL | Branch | Local path | Current split |
 | --- | --- | --- | --- | --- |
-| `upstream-open-webui` | `https://github.com/open-webui/open-webui.git` | `main` | `upstream/open-webui/` | `ecd48e2f718220a6400ecf49eafd4867a38feb10` |
+| `upstream-open-webui` | `https://github.com/open-webui/open-webui.git` | `main` | `upstream/open-webui/` | `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be` |
 
 ## 不变量
 

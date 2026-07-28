@@ -21,6 +21,8 @@
 
 本次结构迁移不修改测试环境，不重启容器，不 pull 镜像，不改 Portainer stack。
 
+仓库中的上游 subtree 已于 2026-07-28 更新到 `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`；上表仍保留 2026-07-07 的已部署镜像快照，因为本次源码同步没有 redeploy、重启或触碰数据卷。
+
 ## 稳定 Compose
 
 根级 [docker-compose.yml](../docker-compose.yml) 是当前 Portainer 稳定入口，必须保持：

@@ -5,7 +5,7 @@
 - 私库：`indieark/open-webui`
 - 官方上游：`open-webui/open-webui`
 - 官方 subtree 路径：`upstream/open-webui/`
-- 当前 split：`ecd48e2f718220a6400ecf49eafd4867a38feb10`
+- 当前 split：`01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`
 - 根目录：IndieArk 兼容层
 
 ## 日常同步
@@ -29,6 +29,8 @@ bash scripts/verify-compat.sh
 WEBUI_SECRET_KEY=verify-placeholder docker compose config --quiet
 WEBUI_SECRET_KEY=verify-placeholder docker compose -f docker-compose.yml -f docker-compose.local.yml config --quiet
 ```
+
+`verify-compat.sh` 同时检查 subtree tree 与最新 `git-subtree-split` 一致、根层品牌资产与 Compose 内嵌常量逐字同步，并确认自定义 UI 依赖的关键上游 DOM anchor 仍存在。
 
 如果实际修改了 `upstream/open-webui/` 源码，再进入该目录执行对应前后端测试。
 

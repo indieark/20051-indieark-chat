@@ -7,7 +7,7 @@
 - 当前仓库：`indieark/open-webui`
 - 公共上游：`open-webui/open-webui`
 - 迁移前私库基线：`3960faf1d6062cea99fe269f141cc41e1f284b0b`
-- 当前公共上游 subtree split：`ecd48e2f718220a6400ecf49eafd4867a38feb10`
+- 当前公共上游 subtree split：`01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`
 
 | 日期 | 计划 | 状态 | 说明 |
 | --- | --- | --- | --- |

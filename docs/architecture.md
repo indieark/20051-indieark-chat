@@ -13,7 +13,7 @@ IndieArk root
 `upstream/open-webui/` 对应 `open-webui/open-webui:main`。当前同步基线是：
 
 ```text
-ecd48e2f718220a6400ecf49eafd4867a38feb10
+01f4282f1ffe0d6212f58d3afbeae21fffd0c4be
 ```
 
 默认不直接修改该目录。上游更新通过 `scripts/sync-upstream.*` 进入，并以 `git-subtree-split` 记录作为 compare-first 基线。
