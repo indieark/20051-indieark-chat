@@ -2,7 +2,7 @@
 
 ## 测试环境快照
 
-只读核验日期：2026-07-07
+只读核验日期：2026-07-29
 
 | 项 | 当前值 |
 | --- | --- |
@@ -13,15 +13,37 @@
 | Container | `open-webui` |
 | Published port | `0.0.0.0:3000->8080/tcp`, `[::]:3000->8080/tcp` |
 | Image | `ghcr.io/open-webui/open-webui:main` |
-| Image id | `sha256:a26effeb220e132482bf7e0560b3404843e7bc40d23051144e062960df8df6b0` |
-| Image revision / `WEBUI_BUILD_VERSION` | `ecd48e2f718220a6400ecf49eafd4867a38feb10` |
-| Status | running, healthy |
+| Image id | `sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d` |
+| Image revision / `WEBUI_BUILD_VERSION` | `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be` |
+| Status | running, healthy, restart count `0` |
 | Volume | `open-webui_open-webui:/app/backend/data` |
 | HTTP smoke | `http://127.0.0.1:3000/` returned `200` |
 
-本次结构迁移不修改测试环境，不重启容器，不 pull 镜像，不改 Portainer stack。
+本次生产迁移没有停止、重启或 redeploy 测试容器，也没有修改测试 Portainer Stack。迁移时仅创建 SQLite online backup 临时文件并在校验后删除；该文件位于容器临时层，不在持久化卷中。
 
-仓库中的上游 subtree 已于 2026-07-28 更新到 `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`；上表仍保留 2026-07-07 的已部署镜像快照，因为本次源码同步没有 redeploy、重启或触碰数据卷。
+仓库中的上游 subtree 已于 2026-07-28 更新到 `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`，测试环境当前运行同一 build 对应的公共 `main` 镜像。
+
+## 生产环境快照
+
+部署与只读核验日期：2026-07-29
+
+| 项 | 当前值 |
+| --- | --- |
+| Host | `192.168.10.71` |
+| Hostname | `vm-prod-01` |
+| Portainer Stack | `20051-indieark-chat`，ID `296` |
+| Compose source | `https://github.com/indieark/20051-indieark-chat`，`refs/heads/main`，`docker-compose.yml` |
+| Service / container | `open-webui` |
+| Published port | `0.0.0.0:20051->8080/tcp`, `[::]:20051->8080/tcp` |
+| Image | `ghcr.io/open-webui/open-webui@sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d` |
+| Image revision / `WEBUI_BUILD_VERSION` | `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be` |
+| Status | running, healthy, restart count `0` |
+| Volume | `open-webui_open-webui:/app/backend/data` |
+| HTTP smoke | `http://127.0.0.1:20051/` returned `200` |
+| Database checks | `webui.db` and `vector_db/chroma.sqlite3` both returned `PRAGMA quick_check = ok` |
+| OpenAI base | Persisted configuration contains `http://192.168.10.71:8317/v1`; unauthenticated `/models` probe returned `401` |
+
+数据迁移为一次性时间点快照，不做后续增量同步：普通持久化文件通过卷间 tar 流复制，活动 `webui.db` 使用 SQLite online backup 后单独写入生产卷。源/目标数据库 SHA-256 一致，复制时除数据库 WAL/SHM 外的文件数均为 `3274`。测试环境和 `chat.indieark.tech` 当前路由保持不变，用户完成生产验收后自行关闭测试环境。
 
 ## 稳定 Compose
 
@@ -61,7 +83,7 @@ WEBUI_SECRET_KEY=verify-placeholder docker compose config --quiet
 
 ```text
 HOST_PORT=20051
-OPEN_WEBUI_IMAGE=ghcr.io/open-webui/open-webui@<verified-digest>
+OPEN_WEBUI_IMAGE=ghcr.io/open-webui/open-webui@sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d
 ```
 
 测试环境不设置这两个变量时，继续使用 `3000:8080` 和公共 `main` 标签。`WEBUI_SECRET_KEY`、流式缓冲和 aiohttp 缓冲变量由生产 Stack 安全复用测试 Stack 的现有值，不写入仓库。

@@ -2,16 +2,15 @@
 
 这是 `indieark/20051-indieark-chat` 的 Open WebUI 私库兼容层。本地目录继续保留为 `gadget/open-webui/`；公共上游源码独立放在 `upstream/open-webui/`，根目录只承载 IndieArk 的部署入口、兼容层、同步脚本、计划和维护文档。
 
-当前测试环境运行面保持不变：
+当前运行面：
 
-- Host: `192.168.10.66`
-- Portainer stack / Compose project: `open-webui`
-- Container: `open-webui`
-- Published port: `3000:8080`
-- Image: `ghcr.io/open-webui/open-webui:main`
-- Data volume: `open-webui_open-webui:/app/backend/data`
+- 测试：`192.168.10.66:3000`，Portainer Stack `open-webui`
+- 生产：`192.168.10.71:20051`，Portainer Stack `20051-indieark-chat`
+- 两侧容器：`open-webui`
+- 两侧数据卷：`open-webui_open-webui:/app/backend/data`
+- 生产镜像：`ghcr.io/open-webui/open-webui@sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d`
 
-生产环境复用同一份 Compose，通过 `HOST_PORT=20051` 发布到 `192.168.10.71:20051`；测试环境未设置该变量时仍保持 `3000:8080`。首次生产部署可通过 `OPEN_WEBUI_IMAGE` 固定到已验证的镜像 digest，数据卷名在两台主机上都显式保持为 `open-webui_open-webui`。
+生产环境复用同一份 Compose，通过 `HOST_PORT=20051` 发布。2026-07-29 已将测试卷做一次性时间点快照复制到生产并完成部署；后续测试数据不增量追平。测试环境仍保持 `3000:8080` 运行，`chat.indieark.tech` 路由未切换，等待用户验收后自行关闭测试环境。
 
 ## 目录
 

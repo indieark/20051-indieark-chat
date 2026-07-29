@@ -15,14 +15,16 @@
 - CSS 已覆盖 4-qa-agent 风格明暗色调、dither 背景、暗色 surface、侧栏按钮、输入区按钮、工具/上传下拉菜单、浮动工具栏、右侧控制抽屉、滚动条和开关色调。
 - 兼容验证已强化：自动检查 subtree 纯净性、Compose/data 边界、品牌资产与内嵌 bootstrap 一致性，以及当前上游关键 UI anchor。
 - 上游 `0.11.0` 移除了消息输入区旧 `#create-note-button`，但 Notes 创建能力仍由 Notes 页面、侧栏入口和 `createNoteHandler` 保留；该无效 CSS 子选择器不影响同组其他按钮，也无需修改 upstream。
-- 本轮只处理仓库同步与发布；不自动 redeploy Portainer，不重启测试环境容器，不触碰 `open-webui_open-webui` volume。
+- GitHub 仓库已改名为 `indieark/20051-indieark-chat`，本地目录保持 `gadget/open-webui`；Compose 已参数化生产端口和镜像。
+- 生产卷 `open-webui_open-webui` 已从测试环境做一次性时间点快照复制，主 SQLite 使用 online backup；主库和 Chroma 均通过 `quick_check`，不做后续增量同步。
+- Portainer 已在 `vm-prod-01` 创建 Stack `20051-indieark-chat`（ID `296`），使用 `refs/heads/main` 和根级 `docker-compose.yml`，生产入口为 `192.168.10.71:20051`。
+- 生产容器 running / healthy / restart count `0`，HTTP `200`，镜像固定到 digest `sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d`。
+- 测试容器仍在 `192.168.10.66:3000` 正常运行，未停止、未重启、未 redeploy；域名未切换。
 
 ## 下一步
 
-- 完成仓库改名、Compose 参数化、验证、提交和推送。
-- 在生产机创建 `open-webui_open-webui`，复制一次测试卷快照。
-- 创建生产 Portainer Stack `20051-indieark-chat`，复用测试 Stack 的安全环境变量并通过 `192.168.10.71:20051` 验证。
-- 保持测试环境和 `chat.indieark.tech` 当前路由不变，等待用户完成生产验收后自行关闭测试环境。
+- 用户通过 `http://192.168.10.71:20051` 完成真实业务验收。
+- 用户确认后自行关闭测试环境；如需将 `chat.indieark.tech` 切到生产，另行授权修改 Nginx Proxy Manager。
 
 ## 注意
 

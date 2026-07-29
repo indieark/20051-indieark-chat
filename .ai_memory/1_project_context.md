@@ -14,17 +14,16 @@
 
 ## 部署事实
 
-测试环境只读核验事实：
+当前部署事实（2026-07-29 只读核验）：
 
-- Host：`192.168.10.66`
-- Compose project / stack：`open-webui`
-- Service / container：`open-webui`
-- Published port：`3000:8080`
-- Stable image：`ghcr.io/open-webui/open-webui:main`
-- Data volume：`open-webui_open-webui:/app/backend/data`
-- 生产部署目标：`192.168.10.71:20051`，Stack `20051-indieark-chat`，通过 `HOST_PORT=20051` 复用同一 Compose。
-- 迁移执行期间未修改 Portainer stack、未重启容器、未切私有镜像。
-- 2026-07-28 仓库 subtree 已同步到 Open WebUI `0.11.0` 对应 head `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`；测试环境仍保持 2026-07-07 的已部署镜像快照，未 redeploy、未重启、未触碰数据卷。
+- 测试：`192.168.10.66:3000`，Stack `open-webui`，容器 `open-webui`，保持 running / healthy / restart count `0`。
+- 生产：`192.168.10.71:20051`，Stack `20051-indieark-chat`（ID `296`），容器 `open-webui`，running / healthy / restart count `0`。
+- 两侧 volume：`open-webui_open-webui:/app/backend/data`。
+- 两侧当前镜像 ID：`sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d`；生产通过 digest 固定，测试仍使用公共 `main` 标签。
+- 生产卷来自 2026-07-29 的一次性测试数据快照；不做后续增量追平。`webui.db` 与 Chroma SQLite 均通过 `quick_check`。
+- 生产持久化配置保留 `http://192.168.10.71:8317/v1`；无密钥 `/models` 探测返回 `401`。
+- 测试环境未停止、未重启、未 redeploy；`chat.indieark.tech` 未切换，等待用户验收后自行关闭测试环境。
+- 2026-07-28 仓库 subtree 已同步到 Open WebUI `0.11.0` 对应 head `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`。
 
 ## 品牌与部署层 UI
 
