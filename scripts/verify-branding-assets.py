@@ -14,6 +14,9 @@ ASSET_PATHS = {
     "MANIFEST_JSON": REPO_ROOT / "deploy/open-webui/static/manifest.json",
 }
 
+ROOT_APP_SELECTOR = 'body > div[style*="display: contents"] > .app,'
+BROAD_ROOT_CHILD_SELECTOR = 'body > div[style*="display: contents"] > *,'
+
 
 def extract_bootstrap_source(compose_text: str) -> str:
     marker = "python - <<'PY'"
@@ -52,6 +55,12 @@ def main() -> None:
         expected = path.read_text(encoding="utf-8")
         if embedded_assets[name] != expected:
             raise AssertionError(f"{name} differs from {path.relative_to(REPO_ROOT)}")
+
+    custom_css = embedded_assets["CUSTOM_CSS"]
+    if BROAD_ROOT_CHILD_SELECTOR in custom_css:
+        raise AssertionError("CUSTOM_CSS must not override root accessibility helpers such as .sr-only")
+    if ROOT_APP_SELECTOR not in custom_css:
+        raise AssertionError("CUSTOM_CSS is missing the scoped root .app stacking selector")
 
     json.loads(embedded_assets["MANIFEST_JSON"])
     print("Branding bootstrap and deploy assets are synchronized.")

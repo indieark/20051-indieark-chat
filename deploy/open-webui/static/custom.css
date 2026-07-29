@@ -498,7 +498,7 @@ html.dark:not(.her) [role="switch"] [data-state] {
 	background-color: var(--indieark-text-primary) !important;
 }
 
-body > div[style*="display: contents"] > *,
+body > div[style*="display: contents"] > .app,
 #splash-screen {
 	position: relative;
 	z-index: 1;
