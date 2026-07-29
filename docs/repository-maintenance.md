@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-- 私库：`indieark/open-webui`
+- 私库：`indieark/20051-indieark-chat`
 - 官方上游：`open-webui/open-webui`
 - 官方 subtree 路径：`upstream/open-webui/`
 - 当前 split：`01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`

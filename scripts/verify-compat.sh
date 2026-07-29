@@ -52,7 +52,7 @@ else
   exit 1
 fi
 
-rg -n "open-webui_open-webui|3000:8080|ghcr.io/open-webui/open-webui:main|upstream/open-webui|git-subtree-split" \
+rg -n "open-webui_open-webui|HOST_PORT:-3000|OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:main|upstream/open-webui|git-subtree-split" \
   README.md UPSTREAMS.md docs plans docker-compose.yml >/dev/null
 
 echo "Compatibility verification passed."

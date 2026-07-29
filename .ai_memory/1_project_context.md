@@ -2,7 +2,7 @@
 
 ## 项目目标
 
-`gadget/open-webui` 是 IndieArk 的 Open WebUI 私库兼容层。目标是在保留私库部署设计的同时，让官方 `open-webui/open-webui` 上游源码可以独立同步和更新。
+`gadget/open-webui` 是 IndieArk 的 Open WebUI 私库兼容层，本地目录保持不变，GitHub 仓库为 `indieark/20051-indieark-chat`。目标是在保留私库部署设计的同时，让官方 `open-webui/open-webui` 上游源码可以独立同步和更新。
 
 ## 当前结构
 
@@ -22,6 +22,7 @@
 - Published port：`3000:8080`
 - Stable image：`ghcr.io/open-webui/open-webui:main`
 - Data volume：`open-webui_open-webui:/app/backend/data`
+- 生产部署目标：`192.168.10.71:20051`，Stack `20051-indieark-chat`，通过 `HOST_PORT=20051` 复用同一 Compose。
 - 迁移执行期间未修改 Portainer stack、未重启容器、未切私有镜像。
 - 2026-07-28 仓库 subtree 已同步到 Open WebUI `0.11.0` 对应 head `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`；测试环境仍保持 2026-07-07 的已部署镜像快照，未 redeploy、未重启、未触碰数据卷。
 
@@ -38,7 +39,7 @@
 
 - 默认不直接修改 `upstream/open-webui/`。
 - 上游同步必须 compare-first；无 delta 时 no-op。
-- 根级 `docker-compose.yml` 必须保持当前测试环境部署语义。
+- 根级 `docker-compose.yml` 必须通过默认值保持测试环境 `3000:8080` 语义，并允许生产环境通过 `HOST_PORT=20051` 使用同一入口。
 - `WEBUI_SECRET_KEY` 和搜索 provider key 不入库。
 - 测试环境写操作必须另行确认。
 - `docs/deployment.md` 是部署事实源，`UPSTREAMS.md` 是上游同步事实源，`docs/compatibility-layer.md` 是本地补丁事实源。

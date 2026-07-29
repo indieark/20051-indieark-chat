@@ -1,6 +1,6 @@
 # AGENTS.md
 
-你是在 `gadget/open-webui` 内协作的编码代理。默认使用简体中文。
+你是在 `gadget/open-webui` 内协作的编码代理。GitHub 仓库是 `indieark/20051-indieark-chat`，本地目录不随远端仓库改名。默认使用简体中文。
 
 本仓库同时保留 `00000-model/02-项目模板` 风格的 [AGENT.md](AGENT.md)、`.agent/` 和 `.ai_memory/`。新会话应先读 `.ai_memory/1_project_context.md`、`.ai_memory/2_active_task.md`，再结合本文件和 [UPSTREAMS.md](UPSTREAMS.md) 工作。
 
@@ -14,9 +14,10 @@
 ## 部署约束
 
 - 测试环境是 `192.168.10.66:3000`，Portainer stack / Compose project 为 `open-webui`。
+- 生产环境目标是 `192.168.10.71:20051`，Portainer stack 为 `20051-indieark-chat`；通过 `HOST_PORT=20051` 覆盖测试默认端口。
 - 服务名和容器名保持 `open-webui`。
-- 数据卷保持 `open-webui:/app/backend/data`，测试机实际 Docker volume 为 `open-webui_open-webui`。
-- 第一阶段稳定入口继续使用 `ghcr.io/open-webui/open-webui:main`。
+- 数据卷保持 `open-webui:/app/backend/data`，两台主机实际 Docker volume 都显式命名为 `open-webui_open-webui`。
+- 默认稳定入口继续使用 `ghcr.io/open-webui/open-webui:main`；生产首次部署可通过 `OPEN_WEBUI_IMAGE` 固定已验证 digest。
 - `WEBUI_SECRET_KEY`、搜索 provider key、OpenAI key、Portainer credential 不得写入仓库。
 - 不得执行会影响测试环境的重启、redeploy、volume/network 改动，除非用户明确确认。
 

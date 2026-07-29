@@ -1,10 +1,10 @@
 services:
   open-webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: "${OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:main}"
     container_name: open-webui
     restart: unless-stopped
     ports:
-      - "3000:8080"
+      - "${HOST_PORT:-3000}:8080"
     command:
       - bash
       - -lc
@@ -109,3 +109,4 @@ services:
 
 volumes:
   open-webui:
+    name: open-webui_open-webui

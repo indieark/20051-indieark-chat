@@ -29,9 +29,10 @@
 
 - service: `open-webui`
 - container: `open-webui`
-- image: `ghcr.io/open-webui/open-webui:main`
-- ports: `3000:8080`
+- image: `${OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:main}`
+- ports: `${HOST_PORT:-3000}:8080`
 - volume: `open-webui:/app/backend/data`
+- Docker volume name: `open-webui_open-webui`
 - required env: `WEBUI_SECRET_KEY`
 - Ollama: `OLLAMA_BASE_URL=http://host.docker.internal:11434`
 - stream buffer env: `CHAT_STREAM_RESPONSE_CHUNK_MAX_BUFFER_SIZE=${CHAT_STREAM_RESPONSE_CHUNK_MAX_BUFFER_SIZE:-10485760}`
@@ -55,6 +56,15 @@ awk "/python - <<'PY'/{flag=1;next} /^        PY$/{flag=0} flag{sub(/^        /,
 ```bash
 WEBUI_SECRET_KEY=verify-placeholder docker compose config --quiet
 ```
+
+生产环境使用相同 Compose，并在 Portainer Stack 环境变量中设置：
+
+```text
+HOST_PORT=20051
+OPEN_WEBUI_IMAGE=ghcr.io/open-webui/open-webui@<verified-digest>
+```
+
+测试环境不设置这两个变量时，继续使用 `3000:8080` 和公共 `main` 标签。`WEBUI_SECRET_KEY`、流式缓冲和 aiohttp 缓冲变量由生产 Stack 安全复用测试 Stack 的现有值，不写入仓库。
 
 ## 本地构建
 
@@ -86,7 +96,7 @@ OpenAI hosted `web_search` 不会因为模型本身支持就自动在 Open WebUI
 
 - Portainer stack redeploy。
 - `docker restart` / `docker compose up` / `docker compose down`。
-- 切换到 `ghcr.io/indieark/open-webui:*`。
+- 切换到 `ghcr.io/indieark/20051-indieark-chat:*`。
 - 改 project 名、container 名、端口、volume 名或 `/app/backend/data` 挂载路径。
 
 禁止执行：

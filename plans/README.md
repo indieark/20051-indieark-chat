@@ -4,7 +4,7 @@
 
 当前单一信息源：
 
-- 当前仓库：`indieark/open-webui`
+- 当前仓库：`indieark/20051-indieark-chat`
 - 公共上游：`open-webui/open-webui`
 - 迁移前私库基线：`3960faf1d6062cea99fe269f141cc41e1f284b0b`
 - 当前公共上游 subtree split：`01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`

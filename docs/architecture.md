@@ -36,4 +36,4 @@ IndieArk root
 ghcr.io/open-webui/open-webui:main
 ```
 
-私库现有差异主要是 Portainer/Compose 兼容层，不是运行时代码补丁。因此第一阶段切私有镜像会增加部署风险，但不会带来功能收益。只有出现真实 runtime patch，并完成构建、digest、smoke test 和回滚 tag 后，才考虑把稳定部署入口切到 `ghcr.io/indieark/open-webui:*`。
+私库现有差异主要是 Portainer/Compose 兼容层，不是运行时代码补丁。因此第一阶段切私有镜像会增加部署风险，但不会带来功能收益。只有出现真实 runtime patch，并完成构建、digest、smoke test 和回滚 tag 后，才考虑把稳定部署入口切到 `ghcr.io/indieark/20051-indieark-chat:*`。

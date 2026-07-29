@@ -1,8 +1,11 @@
 # 当前任务
 
-更新时间：2026-07-28
+更新时间：2026-07-29
 
 ## 当前状态
+
+- 用户已确认 GitHub 仓库改名为 `indieark/20051-indieark-chat`，本地目录继续保留 `gadget/open-webui`。
+- 用户已授权将当前测试卷复制一次到生产环境，并通过 Portainer 在 `192.168.10.71:20051` 部署；不要求后续增量追平，不自动关闭测试环境，不切换域名。
 
 - Open WebUI 私库兼容层结构迁移已完成，上游源码继续独立位于 `upstream/open-webui/`。
 - 官方 subtree 已从 `ecd48e2f718220a6400ecf49eafd4867a38feb10` 同步到 `01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`（Open WebUI `0.11.0`）；subtree tree 与上游 head 完全一致，根层私库路径未被 subtree 同步改动。
@@ -16,9 +19,10 @@
 
 ## 下一步
 
-- 如需让测试环境使用新的公共 `main` 镜像，由用户在 Portainer Stack `open-webui` 执行 Pull and redeploy。
-- 部署后只读核验容器内 `/app/backend/open_webui/static/{custom.css,loader.js,manifest.json,favicon.png,splash.png,logo.png}`。
-- 浏览器分别核验内网 `http://192.168.10.66:3000` 和外网 `https://chat.indieark.tech` 的标题、favicon、开屏图、左上品牌位、深色菜单/侧栏/悬浮栏/滚动条。
+- 完成仓库改名、Compose 参数化、验证、提交和推送。
+- 在生产机创建 `open-webui_open-webui`，复制一次测试卷快照。
+- 创建生产 Portainer Stack `20051-indieark-chat`，复用测试 Stack 的安全环境变量并通过 `192.168.10.71:20051` 验证。
+- 保持测试环境和 `chat.indieark.tech` 当前路由不变，等待用户完成生产验收后自行关闭测试环境。
 
 ## 注意
 

@@ -6,6 +6,7 @@
 
 本仓库是 IndieArk 的 Open WebUI 私库兼容层：
 
+- GitHub 仓库为 `indieark/20051-indieark-chat`，本地目录继续使用 `gadget/open-webui`。
 - 官方上游源码独立放在 `upstream/open-webui/`。
 - 根目录承载 IndieArk 兼容层、部署入口、同步脚本、文档和计划。
 - 当前测试环境仍使用公共上游镜像 `ghcr.io/open-webui/open-webui:main`，不是私有 runtime 镜像。
@@ -34,6 +35,7 @@
 ## 关键不变量
 
 - 测试环境 `192.168.10.66:3000` 不因仓库结构迁移自动变化。
+- 生产环境使用 `192.168.10.71:20051`，通过 Compose `HOST_PORT` 与测试环境共用同一入口。
 - Compose project、service、container 均保持 `open-webui`。
 - 数据卷保持 `open-webui:/app/backend/data`，测试机实际 volume 为 `open-webui_open-webui`。
 - 上游同步必须 compare-first；无 delta 时 no-op。

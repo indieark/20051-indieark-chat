@@ -1,6 +1,6 @@
-# IndieArk Open WebUI
+# 20051 IndieArk Chat
 
-这是 IndieArk 的 Open WebUI 私库兼容层。公共上游源码独立放在 `upstream/open-webui/`，根目录只承载 IndieArk 的部署入口、兼容层、同步脚本、计划和维护文档。
+这是 `indieark/20051-indieark-chat` 的 Open WebUI 私库兼容层。本地目录继续保留为 `gadget/open-webui/`；公共上游源码独立放在 `upstream/open-webui/`，根目录只承载 IndieArk 的部署入口、兼容层、同步脚本、计划和维护文档。
 
 当前测试环境运行面保持不变：
 
@@ -10,6 +10,8 @@
 - Published port: `3000:8080`
 - Image: `ghcr.io/open-webui/open-webui:main`
 - Data volume: `open-webui_open-webui:/app/backend/data`
+
+生产环境复用同一份 Compose，通过 `HOST_PORT=20051` 发布到 `192.168.10.71:20051`；测试环境未设置该变量时仍保持 `3000:8080`。首次生产部署可通过 `OPEN_WEBUI_IMAGE` 固定到已验证的镜像 digest，数据卷名在两台主机上都显式保持为 `open-webui_open-webui`。
 
 ## 目录
 
@@ -27,7 +29,7 @@
 ├── .ui/                     # UI 风格入口
 ├── AGENT.md                 # AI 协作入口，兼容 00000-model 模板
 ├── AGENTS.md                # Codex/多工具协作入口
-├── docker-compose.yml       # 测试环境/Portainer 稳定入口
+├── docker-compose.yml       # 测试/生产 Portainer 稳定入口
 ├── docker-compose.local.yml # 本地构建 override
 ├── Dockerfile               # 私有镜像薄包装入口
 └── UPSTREAMS.md             # 上游同步单一入口

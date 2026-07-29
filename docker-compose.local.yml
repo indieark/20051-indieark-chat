@@ -3,4 +3,4 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/indieark/open-webui:local
+    image: ghcr.io/indieark/20051-indieark-chat:local
