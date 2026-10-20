@@ -9,4 +9,4 @@
 | `2_active_task.md` | 覆写 | 记录当前任务进度和下一步 |
 | `3_work_log.md` | 追加 | 记录每日简要变更流水 |
 
-更新记忆时，同步检查 `README.md`、`AGENT.md` / `AGENTS.md`、`docs/README.md` 和 `plans/README.md` 的口径是否一致。
+更新记忆时，同步检查 `README.md`、`AGENTS.md`、`docs/README.md` 和 `plans/README.md` 的口径是否一致。

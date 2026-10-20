@@ -7,7 +7,7 @@
 ## 当前结构
 
 - 官方上游 subtree：`upstream/open-webui/`
-- 根级兼容层：`README.md`、`AGENT.md`、`AGENTS.md`、`UPSTREAMS.md`、`docs/`、`plans/`、`compat/`、`scripts/`、`docker-compose.yml`
+- 根级兼容层：`README.md`、`AGENTS.md`、`UPSTREAMS.md`、`docs/`、`plans/`、`compat/`、`scripts/`、`docker-compose.yml`
 - 部署层静态资产：`deploy/open-webui/static/`
 - 当前官方上游 split：`01f4282f1ffe0d6212f58d3afbeae21fffd0c4be`
 - 上游 remote：`upstream-open-webui=https://github.com/open-webui/open-webui.git`

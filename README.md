@@ -22,12 +22,11 @@
 ├── docs/                    # 当前私库文档
 ├── scripts/                 # 上游同步和兼容层验证脚本
 ├── plans/                   # 计划和归档
-├── .agent/                  # 00000-model 风格的 AI 规则骨架
+├── .agents/                  # 00000-model 风格的 AI 规则骨架
 ├── .ai_memory/              # 跨会话项目记忆
 ├── .exp/                    # 可复用经验沉淀入口
 ├── .ui/                     # UI 风格入口
-├── AGENT.md                 # AI 协作入口，兼容 00000-model 模板
-├── AGENTS.md                # Codex/多工具协作入口
+├── AGENTS.md                # AI 协作入口
 ├── docker-compose.yml       # 测试/生产 Portainer 稳定入口
 ├── docker-compose.local.yml # 本地构建 override
 ├── Dockerfile               # 私有镜像薄包装入口
@@ -52,4 +51,4 @@ bash scripts/verify-compat.sh
 
 文档入口见 [docs/README.md](docs/README.md)。上游同步入口见 [UPSTREAMS.md](UPSTREAMS.md)。
 
-本仓库也保留了 `00000-model/02-项目模板` 的基础治理结构：`.agent/`、`.ai_memory/`、`.exp/`、`.ui/`、`AGENT.md` 和 `MEMO.md`。这些文件只承载本仓当前事实和协作规则，不复制共享资产库的业务内容。
+本仓库也保留了 `00000-model/02-项目模板` 的基础治理结构：`.agents/`、`.ai_memory/`、`.exp/`、`.ui/`、`AGENTS.md` 和 `MEMO.md`。这些文件只承载本仓当前事实和协作规则，不复制共享资产库的业务内容。
