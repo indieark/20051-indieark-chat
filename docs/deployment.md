@@ -1,5 +1,19 @@
 # 部署
 
+## 2026-10-22 生产安全运行时
+
+生产 Stack 296 的 `OPEN_WEBUI_IMAGE` 已固定为 `ghcr.io/indieark/20051-indieark-chat:sha-22519ca`。
+根级 Dockerfile 沿用原上游应用 digest `sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d`，
+仅将 Python Playwright 原位置的 Node 替换为 `24.22.1`。上游应用代码和浏览器版本保持。
+
+- 兼容层提交：`22519ca354bfd6df6c398a28841a20becbcb9787`；[构建 CI](https://github.com/indieark/20051-indieark-chat/actions/runs/39716261249) 成功。
+- 容器实际内置 Node 为 `v24.22.1`，healthy，`/health` 和首页均返回 HTTP 200。
+- 原数据卷、端口、凭据及其他 Stack 环境保留；发布前保存完整加密备份及两份 SQLite online backup。
+- `webui.db` 全部表指纹一致；Chroma 仅 `acquire_write` 锁记录由 10 增至 11，其余全部表指纹一致，两库 `quick_check=ok`。
+- `.github/workflows/docker-publish.yml` 发布仅带 SHA 标签的兼容镜像，后续安全更新必须继续核对原内置 Node 的实际路径与版本。
+
+本次只更新生产 Stack；以下 2026-07-29 表格保留迁移时的历史快照，不代表当前生产镜像。
+
 ## 测试环境快照
 
 只读核验日期：2026-07-29

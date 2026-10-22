@@ -49,6 +49,7 @@
 - 服务名和容器名保持 `open-webui`。
 - 数据卷保持 `open-webui:/app/backend/data`，两台主机实际 Docker volume 都显式命名为 `open-webui_open-webui`。
 - 默认稳定入口继续使用 `ghcr.io/open-webui/open-webui:main`；生产首次部署可通过 `OPEN_WEBUI_IMAGE` 固定已验证 digest。
+- 生产已通过 `OPEN_WEBUI_IMAGE` 使用根级 Dockerfile 构建的 Node 安全兼容镜像；原上游应用版本保持。当前镜像与验证见 `docs/deployment.md`，不要将生产变量恢复为未修补的上游镜像。
 - `WEBUI_SECRET_KEY`、搜索 provider key、OpenAI key、Portainer credential 不得写入仓库。
 - 不得执行会影响测试环境的重启、redeploy、volume/network 改动，除非用户明确确认。
 

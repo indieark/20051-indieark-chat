@@ -1,6 +1,6 @@
 # 内置 Playwright Node.js 安全升级
 
-状态：`[in-progress]`；已授权完整发布，配置和数据已备份，正在执行 CI 与原 Stack 更新。
+状态：`[done]`；安全版本已提交、推送，CI 成功并完成原 Stack 发布和运行数据核验。
 
 2026-10-22 生产 Stack 296 的 Open WebUI 未在 PATH 提供 Node，但
 `/usr/local/lib/python3.11/site-packages/playwright/driver/node` 实测为 24.15.0。
@@ -22,3 +22,12 @@
 失败时恢复原 `OPEN_WEBUI_IMAGE`，不删除 `open-webui_open-webui` 卷。
 
 完整工作区证据：`../../_work/office_runs/2026-10-22-node-security/report.md`。
+
+## 发布证据
+
+- 安全提交：`22519ca354bfd6df6c398a28841a20becbcb9787`。
+- [CI 39716261249](https://github.com/indieark/20051-indieark-chat/actions/runs/39716261249) 成功。
+- 原 Stack 296 已发布；运行实例 Node 为 `24.22.1`，镜像 revision 与对应安全提交一致，重启计数为 0。
+- 页面及相关健康端点返回 HTTP 200。 原 GitOps、数据挂载保持一致；除明确记录的镜像选择变量外，其余 Stack 环境保持一致。
+- 原上游应用作为固定基底，通过 OPEN_WEBUI_IMAGE 选择安全兼容镜像；原卷加密备份和 webui/chroma 两份在线备份已校验。webui 全部表和 Chroma 全部业务/索引表指纹一致；仅 acquire_write 锁表从 10 行变为 11 行；两库 quick_check=ok。
+- 旧镜像及数据卷保留。真实页面交互由用户确认，代理未重放业务或发送测试通知。

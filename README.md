@@ -8,7 +8,7 @@
 - 生产：`192.168.10.71:20051`，Portainer Stack `20051-indieark-chat`
 - 两侧容器：`open-webui`
 - 两侧数据卷：`open-webui_open-webui:/app/backend/data`
-- 生产镜像：`ghcr.io/open-webui/open-webui@sha256:6a773e5c3a246b65cbe74ce942b294292c0e5f81c138f703d111bc162f7d7c3d`
+- 生产镜像：`ghcr.io/indieark/20051-indieark-chat:sha-22519ca`，保留原上游应用版本，仅修补 Python Playwright 内置 Node；当前发布证据见 [部署文档](docs/deployment.md#2026-10-22-生产安全运行时)。
 
 生产环境复用同一份 Compose，通过 `HOST_PORT=20051` 发布。2026-07-29 已将测试卷做一次性时间点快照复制到生产并完成部署；后续测试数据不增量追平。测试环境仍保持 `3000:8080` 运行，`chat.indieark.tech` 路由未切换，等待用户验收后自行关闭测试环境。
 
