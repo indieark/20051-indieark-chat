@@ -1,5 +1,7 @@
 # 计划索引
 
+- [Node.js 2026-10 安全升级](2026-10-22-node-security-upgrade.md) — `[in-progress]`，已授权完整发布，备份完成，正在执行 CI 和原 Stack 更新。
+
 这是 `gadget/open-webui/` 的计划与归档索引。新增、移动、废弃或归档计划文档时，必须同步更新本文件。
 
 当前单一信息源：
